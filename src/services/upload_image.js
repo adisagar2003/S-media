@@ -4,7 +4,7 @@ const cloudinary = require('../utils/cloudinary');
 require('dotenv').config();
 
 const upload_image = (file) => {
-    cloudinary.uploader.upload(file, {upload_preset: "images"}, (error, result)=>{
+    cloudinary.uploader.upload(file, {upload_preset: "nhx1tljw"}, (error, result)=>{
    
       }).then(( result ) => {
         console.log(result,'result goes hard here');
