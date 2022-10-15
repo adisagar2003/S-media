@@ -4,14 +4,21 @@ const cloudinary = require('../utils/cloudinary');
 require('dotenv').config();
 
 const upload_image = (file) => {
-    cloudinary.uploader.upload(file, {upload_preset: "nhx1tljw"}, (error, result)=>{
+  let final_result;
+    let url_promise = cloudinary.uploader.upload(file, {upload_preset: "nhx1tljw"}, (error, result)=>{
    
       }).then(( result ) => {
-        console.log(result,'result goes hard here');
-        return result
+        final_result = result;
+        console.log(result.url);
+        return result.url;
       }).catch((error)=>{
         console.log(error);
       });   
-}
+  let url   = url_promise.then((result)=>{
+      return result;
+    });
+console.log({url});
+  return url;
+    }
 
 module.exports = upload_image;
