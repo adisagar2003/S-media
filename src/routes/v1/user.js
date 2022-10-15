@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const controller = require('../../controllers/UserController');
 const router = express.Router()
 
 // middleware that is specific to this router
@@ -6,13 +7,21 @@ router.use((req, res, next) => {
   console.log('Time: ', Date.now())
   next()
 })
+
+// Register the user
+
+router.post('/',controller.post);
+
 // define the home page route
-router.get('/', (req, res) => {
-  res.send('Users home page');
-})
-// define the about route
-router.get('/about', (req, res) => {
-  res.send('Users about page');
-})
+
+router.get('/', controller.get)
+
+
+// define the all routes
+
+router.get('/users', controller.users);
+
+// define the all routes
+
 
 module.exports = router
