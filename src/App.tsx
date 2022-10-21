@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
+import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import './index.css'
 
@@ -8,7 +9,7 @@ function App() {
 
   return (
     <div className="App">
-      <Register />
+      <Login />
     </div>
   )
 }
