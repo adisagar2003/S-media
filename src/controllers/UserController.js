@@ -1,7 +1,13 @@
-const users = require('../models/userModel.js')
+const users = require('../models/userModel.js');
+const generate_access_token = require('../services/generate_access_token.js');
 module.exports =  {
-    get: (req,res)=>{
-        res.send("User: get request");
+
+    get:  async (req,res)=>{
+        let arr_data = null
+        let all_data = await users.find({}).then( (result) => { arr_data = (result); });
+        res.json({
+            users:arr_data
+        })
     },
     post: async (req,res)=>{
         let user_data = {
@@ -19,36 +25,39 @@ module.exports =  {
                 res.send({message:"user already exists"})
             } else{
                 const user = new users(
-                    {
-                        first_name: req.body.first_name,
-                        last_name: req.body.last_name,
-                        email: req.body.email,
-                        user_name: req.body.user_name,
-                        password: req.body.user_name,
-                        bio: req.body.bio,
-                        profile_picture: req.body.profile_picture,
-                    }
+                    user_data
                 )
-                user.save(err=>{
-                    if(err){
-                        res.send(err)
- 
-                    }
-                    else{
-                        res.send("heart broken")
-                        console.log('ok');
-                }})
-            
+                console.log(user);
+                try 
+                {
+                    user.save(response=>{
+                        res.json({
+                            response: response,
+                            user_saved: user
+                        })
+                    });
+                }
+                catch(err){
+                    res.json({
+                        error: err
+                    })
+                }
+
             }
         })
         //register user from here
     
     },
-    users: async (req,res)=>{
-        await res.json({
-            users:{
-                
-            }
+    login: async (req,res) =>{
+        await users.findOne({ email: req.body.email, password: req.body.password }, async (err, user) => {
+            const token =await generate_access_token.generate_token(user.toString());
+            res.cookie('access_token',token);
+            res.json({
+                token: token,
+                user_data: user
+            })
+        
         })
     }
+
 }

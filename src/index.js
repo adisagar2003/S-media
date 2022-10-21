@@ -15,9 +15,9 @@ const connect_db = require('./db/db.connection')
 
 connect_db();
 
+        
 
-
-app.use(bodyParser.json({ type: 'application/*+json' }))
+app.use(bodyParser.json())
 
 app.use('/users', user);
 app.use('/posts',posts); 

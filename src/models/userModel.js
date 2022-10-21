@@ -8,7 +8,7 @@ const user_schema = new Schema({
   first_name:  { type: String, required: true }, // String is shorthand for {type: String}
   last_name:  { type: String, required: true },
   bio:  { type: String },
-  profile_picture: { type: String, required: true, default: 'https://robohash.org/33333' },
+  profile_picture: { type: String, required: true, default: `https://robohash.org/${ Math.random()*100000}` },
   date_joined: { type: Date, default: Date.now },
   followers: { type: Array, default: ['9910201447'] },
   posts: { type: Array, default: ['joined_id'] },
