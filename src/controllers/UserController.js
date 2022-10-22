@@ -50,7 +50,7 @@ module.exports =  {
     },
     login: async (req,res) =>{
         await users.findOne({ email: req.body.email, password: req.body.password }, async (err, user) => {
-            const token =await generate_access_token.generate_token(user.toString());
+            const token =await generate_access_token.generate_token(user);
             res.cookie('access_token',token);
             res.json({
                 token: token,

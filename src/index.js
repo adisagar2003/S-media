@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const Router = express.Router();
 const multer = require('multer');
 const fileUpload = multer();
+const cors = require('cors');
 const connect_db = require('./db/db.connection')
 //middleware to require other routers
 
@@ -16,7 +17,7 @@ const connect_db = require('./db/db.connection')
 connect_db();
 
         
-
+app.use(cors());
 app.use(bodyParser.json())
 
 app.use('/users', user);
