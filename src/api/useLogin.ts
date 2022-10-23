@@ -18,6 +18,7 @@ export default  function useLogin(params:any){
         }
         catch(err:any)
         {
+            console.log(err);
             setError(err);
             setLoading(false);
         }

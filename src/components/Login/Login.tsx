@@ -1,15 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import "../../components/Register/Register";
 import { Grid, TextField, Typography, InputLabelProps, InputAdornment, IconButton, Snackbar, Alert } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
+import Cookies from "universal-cookie";
 import {makeStyles} from "@mui/styles";
 import axios from 'axios';
 import useLogin from '../../api/useLogin';
 import { API_DATA } from '../../config/api_files';
+import { LoginContext } from '../../App';
 
 const useStyles = makeStyles({
     field: {
@@ -19,14 +20,19 @@ const useStyles = makeStyles({
 });
 
 function Login() {
+const cookies = new Cookies();
 const [userName,setUserName] = useState('');
 const [password,setPassword] = useState('');
 const [confirmPassword,setConfirmPassword] = useState('');
 const [showPassword,setShowPassword] = useState(false);
 const [email,setEmail] = useState('');
+const [errorAlert,setErrorAlert] = useState(false);
+const [trueAlert, setTrueAlert] = useState(false);
+const {user_data, setUserData, loggedIn, setLoggedIn, token, setToken } = useContext(LoginContext);
+    
+
 
 let mounted = false;
-
 
 useEffect(()=>{
     document.title="S-media Login";
@@ -41,18 +47,38 @@ async function  loginFunction(){
         "password": password,
     })
     console.log(data.data);
+    if (data.data.error){
+        setErrorAlert(true);
+        setInterval(()=> setTrueAlert(false),3000)
+    }
+    else{
+        cookies.set('access_token', data.data.token);
+        setLoggedIn(true);
+        console.log({user_data,loggedIn,token});
+        setToken(data.data.token);
+        setUserData(data.data.user_data);
+        setTrueAlert(true);
+        console.log(user_data,'user data shoudl appear here')
+        setInterval(()=> setTrueAlert(false),3000)
+    }
+
  }
  catch (err){
     return (
-  <Alert  severity="error" sx={{ width: '100%' }}>
-User Not Found!!!
-  </Alert>
+    <h1>Error in server....try again</h1>
     )
  }
 }
 
 
   return (
+    <div>
+     {errorAlert? (  <Alert  severity="error" sx={{ width: '100%', backgroundColor: 'darkred' }}>
+User Not Found!!!
+  </Alert>): ( <div />)}
+  {trueAlert? (  <Alert  severity="success" sx={{ width: '100%', backgroundColor: 'green' }}>
+Logging in....
+  </Alert>): ( <div />)}
     <div class="flex h-400 min-h-full">
         <Grid gap={4} class="flex flex-col bg-slate-800 white p-10 gap-10 w-120">
             <Grid class="flex flex-col gap-0">
@@ -85,6 +111,7 @@ User Not Found!!!
         </Grid>
         <div class="h-30 w-80 bg-gradient-to-r hidden md:block from-purple-500 none to-pink-500" />
        
+    </div>
     </div>
     )
 }
