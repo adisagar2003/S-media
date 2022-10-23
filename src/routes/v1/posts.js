@@ -14,13 +14,6 @@ router.get('/', (req, res) => {
   res.send('Posts home page');
 })
 router.post('/', fileUpload.array('image',5), async (req,res) => {
-  console.log(req.files[0])
-  const cloudinary_result = upload_image(`${req.files[0].path}`).then((result)=>{return result});
-  var  result =await  cloudinary_result.then((result)=>{return result})
-  await res.json({
-    data2:'Should appear',
-    cloudinary_result: result,
-  });
 })
 // define the about route
 router.get('/about', (req, res) => {

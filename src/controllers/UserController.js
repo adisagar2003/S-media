@@ -50,12 +50,20 @@ module.exports =  {
     },
     login: async (req,res) =>{
         await users.findOne({ email: req.body.email, password: req.body.password }, async (err, user) => {
-            const token =await generate_access_token.generate_token(user);
-            res.cookie('access_token',token);
-            res.json({
-                token: token,
-                user_data: user
-            })
+            if (user){
+                const token =await generate_access_token.generate_token(user);
+                res.cookie('access_token',token);
+                res.json({
+                    token: token,
+                    user_data: user
+                })
+            }
+            else{
+                res.json({
+                    error:'Invalid credentials'
+                })
+            }
+           
         
         })
     }
