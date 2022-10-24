@@ -1,4 +1,4 @@
-## S-media
+## S-media (Backend)
 
 A full stack soon to be decentralized social media app. 
  
