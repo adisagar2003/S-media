@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Grid, Typography, Button, createTheme, ThemeProvider } from '@mui/material'
-import Navbar from '../components/Navbar/Navbar'
-import { LoginContext } from '../App'
+import Navbar from '../components/Navbar/Navbar';
+import { LoginContext } from '../App';
 function LandingPage() {
-    const {user_data } = useContext(LoginContext);
+    const login = useContext(LoginContext);
 
     const theme = createTheme({
         Typography:{
@@ -14,7 +14,7 @@ function LandingPage() {
     })
 
     //Styled components
-    console.log('poland',user_data);
+    console.log('poland',login);
   return (
     <Grid>
         <Navbar />

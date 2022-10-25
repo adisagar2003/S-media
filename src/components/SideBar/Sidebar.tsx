@@ -9,7 +9,7 @@ import { LoginContext } from '../../App';
 function Sidebar({ profile_name, profile_picture }) {
 
 
-const {user_data} = useContext(LoginContext);
+   const login = useContext(LoginContext);
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -19,16 +19,18 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   }));
-console.log(user_data);
+  console.log(login);
   return (
     <div class="">
-        
-
+   <div class="absolute top-10 right-10 p-3 font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex justify-center align-center"  >
+         +
+        </div>
         <aside class="md:w-64 w-13 absolute h-screen" aria-label="Sidebar">
-   <div class="overflow-y-auto py-4 px-3 bg-gray-50 h-screen rounded dark:bg-gray-800">
+   <div class="overflow-y-auto py-4 px-3 bg-gray-50 h-screen rounded bg-gray-800">
       <ul class="space-y-12">
          <li>
-         <Link to="/home"><a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+      
+         <Link to="/home"><a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <AdbIcon />
                <span class="ml-3">S-Media</span>
             </a>
@@ -36,7 +38,7 @@ console.log(user_data);
          </li>
          <li>
             <Link to="/search">
-            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg text-white hover:bg-gray-700">
     <ExploreIcon />
                <span class="flex-1 ml-3 whitespace-nowrap">Search</span>
             </a>
@@ -44,7 +46,7 @@ console.log(user_data);
          </li>
          <li>
             <Link to="/followers">
-            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg text-white  hover:bg-gray-700">
                <svg class="bg-gradient-to-r hidden md:block from-purple-500 none to-pink-500" aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="pink" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
                <span class="flex-1 ml-3 whitespace-nowrap">Followers</span>
             </a>
@@ -79,10 +81,11 @@ console.log(user_data);
             <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
             <Avatar
   alt="Remy Sharp"
-  src="/static/images/avatar/1.jpg"
+  src={login.user_data.profile_picture}
+  class="h-10 w-10 flex justify-center align-center pt-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
   sx={{ width: 40, height: 40, position:'relative', right:0 }}
 />
-               <span class="ml-4 font-bold">a</span>
+               <span class="ml-4 font-bold">{login.user_data.username}</span>
             </a>
             </Link>
          </li>
