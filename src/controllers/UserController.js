@@ -5,6 +5,7 @@ module.exports =  {
     get:  async (req,res)=>{
         let arr_data = null
         let all_data = await users.find({}).then( (result) => { arr_data = (result); });
+        console.log(req.cookies)
         res.json({
             users:arr_data
         })
@@ -51,11 +52,15 @@ module.exports =  {
     login: async (req,res) =>{
         await users.findOne({ email: req.body.email, password: req.body.password }, async (err, user) => {
             if (user){
+            
                 const token =await generate_access_token.generate_token(user);
                 res.cookie('access_token',token);
+
+                console.log(req.cookies,'Cookies must appear here')
                 res.json({
                     token: token,
-                    user_data: user
+                    user_data: user,
+                    cookies: req.cookies
                 })
             }
             else{
@@ -65,7 +70,15 @@ module.exports =  {
             }
            
         
+        
         })
+    },
+    check: async (req,res) => {
+    
+
     }
+
+
+
 
 }

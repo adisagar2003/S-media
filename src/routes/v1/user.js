@@ -15,7 +15,7 @@ router.post('/',controller.post);
 
 // define the home page route
 
-router.get('/', email_auth,controller.get)
+router.get('/',controller.get)
 
 
 

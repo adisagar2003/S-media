@@ -8,7 +8,8 @@ const Router = express.Router();
 const multer = require('multer');
 const fileUpload = multer();
 const cors = require('cors');
-const connect_db = require('./db/db.connection')
+const connect_db = require('./db/db.connection');
+var cookieParser = require('cookie-parser');
 //middleware to require other routers
 
 
@@ -18,8 +19,9 @@ connect_db();
 
         
 app.use(cors());
-app.use(bodyParser.json())
-
+app.use(bodyParser.json());
+app.use(cookies());
+app.use(cookieParser());
 app.use('/users', user);
 app.use('/posts',posts); 
 
