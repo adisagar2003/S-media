@@ -65,7 +65,7 @@ function Login() {
                 window.localStorage.setItem("token",data.data.token);
                 window.localStorage.setItem("isLoggedIn","true") ;
                 window.localStorage.setItem("user_data", JSON.stringify(data.data.user_data));
-
+                location.reload();
                 setInterval(() => setTrueAlert(false), 3000)
             }
 

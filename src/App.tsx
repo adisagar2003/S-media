@@ -12,6 +12,7 @@ import RegisterPage from './Pages/RegisterPage'
 import Protected from './Protected';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import ProtectedLogin from './components/ProtectionLogin'
 const cookies = new Cookies(); 
 
 const loginContextData = {
@@ -26,7 +27,10 @@ export const LoginContext = createContext(loginContextData);
 function App() {
   const [dataLoading, setDataLoading] = useState(true);
   const login = useContext(LoginContext);
+  let login_mounted = login;
+
   useEffect(() => {
+    let login_mounted = login;
     const user_data = window.localStorage.getItem('user_data');
     if (user_data !=null) {
       login.loggedIn = true;
@@ -34,6 +38,7 @@ function App() {
       login.loggedIn = true;
       login.user_data = user_data_parsed;
       console.log(login);
+
       setDataLoading(false);
     }
     else{
@@ -45,11 +50,10 @@ function App() {
       {dataLoading ? (<h1>Loading</h1>) : (
     <LoginContext.Provider value={loginContextData}>
      <Routes>
-      <Route path="/home" element={<Protected isLoggedIn={login.loggedIn}><HomePage /></Protected>} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} /> 
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/"></Route>
      </Routes>
      </LoginContext.Provider>)}
     </div>

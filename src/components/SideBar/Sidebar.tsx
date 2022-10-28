@@ -22,11 +22,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   console.log(login);
   return (
     <div class="">
-   <div class="absolute top-10 right-10 p-3 font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex justify-center align-center"  >
-         +
-        </div>
         <aside class="md:w-64 w-13 absolute h-screen" aria-label="Sidebar">
-   <div class="overflow-y-auto py-4 px-3 bg-gray-50 h-screen rounded bg-gray-800">
+   <div class="overflow-y-auto py-4 px-3 bg-gray-50 h-screen fixed rounded bg-gray-900">
       <ul class="space-y-12">
          <li>
       
