@@ -4,7 +4,6 @@ import useFetchUsers from '../../hooks/useFetchUsers';
 const Friends = () => {
     
     const {responseData, loading} = useFetchUsers();
-    console.log(responseData,'data appears here');
   return (
     
     <div class="absolute p-4 w-72 h-screen hidden md:block right-0 bg-zinc-900 flex flex-col justify-between">

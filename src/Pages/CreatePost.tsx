@@ -1,4 +1,4 @@
-import { Grid, TextField, Button } from '@mui/material'
+import { Grid, TextField, Button, CircularProgress } from '@mui/material'
 import React, {useState} from 'react'
 import Friends from '../components/Friends_Groups/Friends';
 import ImageUploading from 'react-images-uploading';
@@ -6,23 +6,29 @@ import Sidebar from '../components/SideBar/Sidebar';
 import axios from 'axios';
 import { API_DATA } from '../config/api_files';
 function CreatePost() {
-  
+ 
+
   const [images, setImages] = React.useState([]);
+  const [isLoadingImage,setLoadingImage] = React.useState(false);
+  const [url,setUrl] = React.useState('');
   let maxNumber= 10;
-  const onChange = (imageList, addUpdateIndex) => {
+  const onChange = async (imageList:any,addUpdateIndex:any) => {
+    var bodyFormData = new FormData();
     // data for submit
-    axios.post(`${API_DATA.API_BASE_URL}/posts/image`).then((result)=>{
-      result.data.data_url
-    })
-    console.log(imageList, addUpdateIndex);
+    setLoadingImage(true);
     setImages(imageList);
+    bodyFormData.append('image',req);
+    const data = await axios.post(`${API_DATA.API_BASE_URL}posts/image`,bodyFormData);
+    
+    setLoadingImage(false);
   };
   return (
     <div>
         <Sidebar />
         <Friends />
+      {isLoadingImage? <CircularProgress color="primary" />:null}
     <div class="flex md:w-[60%] relative md:left-80 p-4 pt-20 rounded-xl gap-10  flex-col justify-center align-center">
-        <div class="w-full md:h-80  p-3  bg-zinc-800/50 justify-center align-center flex ">
+        <div class="w-full md:h-96  p-3  bg-zinc-800/50 justify-center align-center flex ">
             <ImageUploading
         multiple
         value={images}

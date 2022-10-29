@@ -32,7 +32,6 @@ export const LoginContext = createContext(loginContextData);
 function App() {
   const [dataLoading, setDataLoading] = useState(true);
   const login = useContext(LoginContext);
-  console.log(window.cloudinary,'Window.cloud')
   let login_mounted = login;
 
 
@@ -51,7 +50,6 @@ function App() {
       let user_data_parsed = JSON.parse(user_data);
       login.loggedIn = true;
       login.user_data = user_data_parsed;
-      console.log(login);
 
       setDataLoading(false);
     }

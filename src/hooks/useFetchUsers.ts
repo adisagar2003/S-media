@@ -8,7 +8,6 @@ export default function useFetchUsers() {
     useEffect(()=>{
         const fetchUsers = async () => {
             let  data = await axios.get('http://localhost:5000/users');
-            console.log(data);
             setResponseData([...(data.data.users)]);
             setIsLoading(false);
         }
