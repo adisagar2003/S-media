@@ -3,7 +3,7 @@ const upload_image = require('../../services/upload_image')
 const router = express.Router()
 const multer = require('multer');
 var fs = require('fs');
-const { post } = require('../../controllers/PostController');
+const { post, get, image } = require('../../controllers/PostController');
 const fileUpload = multer({ dest: './upload' });
 // middleware that is specific to this router
 router.use((req, res, next) => {
@@ -11,10 +11,9 @@ router.use((req, res, next) => {
   next()
 })
 // define the home page route
-router.get('/', (req, res) => {
-  res.send('Posts home page');
-})
-router.post('/' ,post)
+router.get('/', get);
+router.post('/' ,post);
+router.post('/image',fileUpload.single('image'),image);
 // define the about route
 router.get('/about', (req, res) => {
   res.send('Posts about page');

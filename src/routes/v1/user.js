@@ -15,9 +15,9 @@ router.post('/',controller.post);
 
 // define the home page route
 
-router.get('/',controller.get)
+router.get('/'  ,controller.get);
 
-
+router.get('/check',controller.check);
 
 
 // define the login route

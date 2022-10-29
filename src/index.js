@@ -10,6 +10,7 @@ const fileUpload = multer();
 const cors = require('cors');
 const connect_db = require('./db/db.connection');
 var cookieParser = require('cookie-parser');
+
 //middleware to require other routers
 
 
@@ -17,10 +18,15 @@ var cookieParser = require('cookie-parser');
 
 connect_db();
 
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
         
 app.use(cors());
 app.use(bodyParser.json());
-app.use(cookies());
 app.use(cookieParser());
 app.use('/users', user);
 app.use('/posts',posts); 

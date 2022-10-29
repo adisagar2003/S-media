@@ -1,18 +1,45 @@
 const posts = require("../models/postModel.js");
+const upload_image = require("../services/upload_image.js");
 module.exports= {
     get: async (req,res)=>{
-
+      const data= await  posts.find({});
+      try{
+        res.json({
+            status:res.status,
+            data:data
+        })
+      }
+      catch(err){
+        res.json({
+            error: err
+        })
+      }
     },
     post: async (req,res) =>{
+
         let post_data = {
             post_title: req.body.post_title,
             post_description: req.body.post_description,
-            post_images: [],
+            post_images:[],
             post_likes: [],
             post_dislikes: [],
             post_comments: [],
             post_owner: "6306b6eb414346fe5e01a9f7"  
         }
+
+        if (req.body.post_images){
+            post_data = {
+                post_title: req.body.post_title,
+                post_description: req.body.post_description,
+                post_images: req.body.post_images,
+                post_likes: [],
+                post_dislikes: [],
+                post_comments: [],
+                post_owner: "6306b6eb414346fe5e01a9f7"  
+            }
+        }
+        
+
         const post = new posts(post_data);
         console.log(post,'post created');
         try{
@@ -28,5 +55,13 @@ module.exports= {
                 error: err
             })
         }
+    },
+
+    image: async (req,res) =>{
+        console.log('req.file',req.file)
+        let data = await upload_image(req.file.path);
+        res.json({
+            "data_url":data
+        })
     }
 }

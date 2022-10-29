@@ -1,3 +1,5 @@
+const jwt = require('json-web-token');
+require('dotenv').config();
 const users = require('../models/userModel.js');
 const generate_access_token = require('../services/generate_access_token.js');
 module.exports =  {
@@ -60,7 +62,7 @@ module.exports =  {
                 res.json({
                     token: token,
                     user_data: user,
-                    cookies: req.cookies
+                    cookies: req.cookies    
                 })
             }
             else{
@@ -73,8 +75,21 @@ module.exports =  {
         
         })
     },
-    check: async (req,res) => {
-    
+    check:  (req,res) => {
+        console.log('checking....')
+        try{
+            const token = req.cookies;
+            console.log(token);
+            if (!token) return res.json({error:'cookie not detecting'});
+            console.log('verifying jwt....')
+            jwt.verify(token, process.env.TOKEN_SECRET);
+            console.log('hello')
+            res.json(true);
+        }
+        catch (err){
+            console.log('verifying jwt')
+            res.json(false);
+        }
 
     }
 
