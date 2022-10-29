@@ -12,7 +12,10 @@ import RegisterPage from './Pages/RegisterPage'
 import Protected from './Protected';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import ProtectedLogin from './components/ProtectionLogin'
+import ProtectedLogin from './components/ProtectionLogin';
+import CreatePost from './Pages/CreatePost';
+import {Cloudinary} from "@cloudinary/url-gen";
+
 const cookies = new Cookies(); 
 
 const loginContextData = {
@@ -24,10 +27,21 @@ const loginContextData = {
   setToken: (token:'')=>{}
 }
 export const LoginContext = createContext(loginContextData);
+
+
 function App() {
   const [dataLoading, setDataLoading] = useState(true);
   const login = useContext(LoginContext);
+  console.log(window.cloudinary,'Window.cloud')
   let login_mounted = login;
+
+
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: "dvdwmixyk"
+    }
+  });
 
   useEffect(() => {
     let login_mounted = login;
@@ -54,6 +68,8 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} /> 
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/createPost" element={<CreatePost />} />
+
      </Routes>
      </LoginContext.Provider>)}
     </div>

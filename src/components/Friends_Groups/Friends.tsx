@@ -7,7 +7,7 @@ const Friends = () => {
     console.log(responseData,'data appears here');
   return (
     
-    <div class="absolute p-4 w-72 h-screen right-0 bg-zinc-900 flex flex-col justify-between">
+    <div class="absolute p-4 w-72 h-screen hidden md:block right-0 bg-zinc-900 flex flex-col justify-between">
         <div class="flex flex-col">
             <Chip label="People you might know" color="info" clickable variant="outlined" sx={{textDecorationColor:'cyan'}} />
             <Grid flexDirection="row" gap={30} padding={3}>

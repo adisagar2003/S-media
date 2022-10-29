@@ -32,23 +32,24 @@ import Comments from './Comments';
     const [expanded, setExpanded] = useState(false);
     function PostPreview(){
         return (
-            <div class="absolute justify-left align-center flex h-[100%] w-[100%] top-0 left-0 bg-stone-800/70 ">
-                 <Card sx={{ display: 'flex', width: '100%', backgroundColor:'#2f2f2f' }}>
+            <div class="z-0 " style={{zIndex:100}}>
+            <div class="flex md:h-[80%] h-[100%]  w-[100%] md:w-[80%] z-999 fixed top-0 left-0 m-0 p-0 ">
+                 <Card sx={{ display: 'flex', width: '100%', backgroundColor:'#2f2f2f', zIndex:999 }}>
                  <CardMedia
             component="img"
-            sx={{ width: '60%', height:'100%'}}
+            sx={{ width: '100%', height:'100%'}}
             image="https://images.unsplash.com/photo-1666726435132-9ac5e965a7d5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
             alt="Live from space album cover"
           />
-          <Box sx={{ display: 'flex', flexDirection: 'column', width:10000 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', width:"50%",zIndex:999 }} style={{zIndex:9999}}>
           <IconButton onClick={ closeModal}  sx={{zIndex:999, position:'absolute', right:0}}><Cancel /></IconButton>
 
-            <CardContent sx={{ flex: '1 0 auto',position:'relative', width:800,zIndex:0 }}>
+            <CardContent sx={{ flex: '1 0 auto',position:'relative', width:800,zIndex:100 }}>
               <Typography component="div" variant="h5" class="z-0 w-24">
                 Post Title 
               </Typography>
               <Typography variant="subtitle1" color="text.secondary" sx={{display:'flex', gap:1}} component="div">
-               <Avatar /> <Chip label="user_name" clickable color="error" variant="outlined" labelColor="red"  />
+               <Avatar sx={{zIndex:1}}/> <Chip label="user_name" clickable color="error" variant="outlined" labelColor="red"  />
               </Typography>
     
               <Typography>
@@ -78,11 +79,12 @@ import Comments from './Comments';
             <TextField id="input-with-sx" label="Comment" variant="standard" />
           </Box>
           <Box>
-                uuu
+                a
           </Box>
           </Box>
          
         </Card>
+            </div>
             </div>
         )
     }
@@ -99,7 +101,10 @@ import Comments from './Comments';
   
     return (
   
-      <Card onClick={() => setPostPreview(true)} sx={{ maxWidth: 345, maxHeight: 400,minHeight:400, minWidth:345,  overflow:'hidden', backgroundColor: '#2f2f2f' }}>
+      <div class="">
+      {postPreview ? <PostPreview />:null}
+      
+      <Card  sx={{ maxWidth: "10%", maxHeight: 400,minHeight:400,padding:4,position:'relative',left:"3%", minWidth:345,  overflow:'hidden', backgroundColor: '#2f2f2f',zIndex:0}} style={{zIndex:0}}>
 
         <CardMedia
           component="img"
@@ -110,8 +115,8 @@ import Comments from './Comments';
 
          <CardHeader
           avatar={
-            <Avatar sx={{ backgroundColor:'red' }} aria-label="recipe">
-              R
+            <Avatar sx={{ backgroundColor:'red', zIndex:0 }} aria-label="recipe">
+              A
             </Avatar>
           }
   
@@ -119,15 +124,17 @@ import Comments from './Comments';
           subheader="September 14, 2016"
         />
         
-        <CardContent>
+        <CardContent >
+          
           <Typography variant="body2" color="black" sx={{backgroundColor:'#2f2f2f', padding: '10px'}}>
             This impressive paella is a perfect party dish and a fun meal to cook
             together with your guests. Add 1 cup of frozen peas along with the mussels,
             if you like.
           </Typography>
-          {postPreview? <PostPreview/>:null}
+  
         </CardContent>
       </Card>
+      </div>
     );
   }
 
