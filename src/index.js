@@ -18,6 +18,7 @@ var cookieParser = require('cookie-parser');
 
 connect_db();
 
+app.use(cookieParser());
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
@@ -25,9 +26,10 @@ app.use(function(req, res, next) {
     next();
   });
         
-app.use(cors());
+app.use(cors({
+  credentials:"true"
+}));
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use('/users', user);
 app.use('/posts',posts); 
 

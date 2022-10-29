@@ -1,9 +1,13 @@
 const posts = require("../models/postModel.js");
 const upload_image = require("../services/upload_image.js");
+const cookieParser = require('cookie-parser');
+
 module.exports= {
     get: async (req,res)=>{
+
       const data= await  posts.find({});
       try{
+        console.log(data,'DATA');
         res.json({
             status:res.status,
             data:data
@@ -57,9 +61,13 @@ module.exports= {
         }
     },
 
-    image: async (req,res) =>{
-        console.log('req.file',req.file)
-        let data = await upload_image(req.file.path);
+    image: async  (req,res) =>{
+        console.log('req.file',req.file);
+        const upload_image_data =async () => {
+            let data = await upload_image(req.file.path);
+            return data;
+        }
+        let data = await upload_image_data();
         res.json({
             "data_url":data
         })
